@@ -1,12 +1,16 @@
 package Lingua::EN::NamedEntity;
+
 use Lingua::Stem::En;
 Lingua::Stem::En::stem_caching({ -level => 2});
+
 use 5.006;
 use strict;
 use warnings;
 use Carp;
 use DB_File;
+
 my $home = ((getpwuid $<)[7]). "/.namedentity";
+
 our %dictionary;
 tie %dictionary, "DB_File", $home."/wordlist" 
     or carp "Couldn't open wordlist: $!\n";
@@ -21,7 +25,7 @@ our @EXPORT = qw(
 	extract_entities
 );
 
-our $VERSION = '1.1';
+our $VERSION = '1.2';
 
 # Regexps for constructing capitalised sequences
 my $conjunctives = qr/of|and|the|&|\+/i;
@@ -44,26 +48,26 @@ sub extract_entities {
     $text =~ s/\n/ /g;
     $text =~ s/ +/ /g;
     my @candidates;
-    @candidates = combine_contexts(
-    map { categorize_entity($_) }
+    @candidates = _combine_contexts(
+    map { _categorize_entity($_) }
      _spurn_dictionary_words(_extract_capitalized($text)));
 }
 
 
-sub categorize_entity {
+sub _categorize_entity {
     my $e = shift;
     $e->{scores} = { person => 1, place => 1, organisation => 1};
     bless $e, "Lingua::EN::NamedEntity";
-    $e->definites and return $e;
-    $e->name_clues;
-    $e->place_clues;
-    $e->org_clues;
-    $e->fix_scores;
+    $e->_definites and return $e;
+    $e->_name_clues;
+    $e->_place_clues;
+    $e->_org_clues;
+    $e->_fix_scores;
     return $e;
 }
 
 my $places_terminal = qr/St(reet)?|Ave(nue)?/i;
-sub definites {
+sub _definites {
     my $e = shift;
     my $ent = $e->{entity};
     if ($ent =~ /^$people_initial\.?\b/ or $ent =~ /\b$people_terminal\.?$/) {
@@ -80,7 +84,7 @@ sub definites {
 my $pre_name =
 qr/chair|\w+man|\w+person|director|executive|manager|president|secretary|chancellor|
 minister|governor|chief|deputy|head|member|officer/ix;
-sub name_clues {
+sub _name_clues {
     my $e = shift;
     my $ent = $e->{entity};
     my @x;
@@ -91,14 +95,14 @@ sub name_clues {
 }
 
 my $pre_place = qr/in|at/i;
-sub place_clues {
+sub _place_clues {
     my $e = shift;
     my @x;
     $e->{scores}{place} += 3  if (@x = split /\W+/, $e->{entity}) == 1; 
     $e->{scores}{place} += 3 if $e->{pre} =~ /(^|\b)$pre_place(\b|$)/;
 }
 
-sub org_clues {
+sub _org_clues {
     my $e = shift;
     my $ent = $e->{entity};
     $e->{scores}{organisation} += 10 if $ent =~ /\b(&|and|\+)\b/;
@@ -106,7 +110,7 @@ sub org_clues {
     $e->{scores}{organisation} += @words;
 }
 
-sub fix_scores {
+sub _fix_scores {
     my $e = shift;
     if (!$e->{class}) {
         $e->{class} = (sort {$e->{scores}{$b}<=>$e->{scores}{$a}} keys
@@ -152,7 +156,7 @@ sub _extract_capitalized {
     return @results;
 }
 
-sub combine_contexts {
+sub _combine_contexts {
     my @entities = @_;
     my %combined;
     my @rv;
@@ -165,13 +169,12 @@ sub combine_contexts {
         }
     }
     for my $e (values %combined) {
-        push @rv, fix_scores($e);
+        push @rv, _fix_scores($e);
      }
     return @rv;
 }
 1;
 __END__
-# Below is stub documentation for your module. You'd better edit it!
 
 =head1 NAME
 
@@ -200,19 +203,23 @@ possible classes for this entity in an open-ended scale.
 
 Naturally, the more text you throw at this, the more accurate it becomes.
 
-=head2 EXPORT
+=head2 extract_entities
 
-C<extract_entities>
+Pass to C<<extract_entities>> a text, and it will return a list of
+entities, as described above.
 
 =head1 AUTHOR
 
 Simon Cozens, C<simon@kasei.com>
 
+Maintained by Alberto Simões, C<ambs@cpan.org>
+
 =head1 COPYRIGHT AND LICENSE
 
+Copyright 2004 by Alberto Simões
 Copyright 2003 by Simon Cozens
 
 This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+it under the same terms as Perl itself.
 
 =cut

@@ -1,5 +1,9 @@
 Revision history for Perl extension Lingua::EN::NamedEntity.
 
+1.2 The Sep 30 10:26:13 2004
+    - Added pod and pod-coverage tests.
+    - Added co-maintainer information.
+
 1.1 Thu Sep 25 15:25:13 BST 2003
     - Allow for /usr/dict/words
     - List Stemmer as a prerequisite.
