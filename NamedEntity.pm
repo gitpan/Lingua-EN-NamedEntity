@@ -7,25 +7,26 @@ use 5.006;
 use strict;
 use warnings;
 use Carp;
+use Fcntl;
 use DB_File;
 
-my $home = ((getpwuid $<)[7]). "/.namedentity";
-
+my $wordlist = _find_file("wordlist");
 our %dictionary;
-tie %dictionary, "DB_File", $home."/wordlist" 
-    or carp "Couldn't open wordlist: $!\n";
+tie %dictionary, "DB_File", $wordlist, O_RDONLY
+  or carp "Couldn't open wordlist: $!\n";
 
-my %forenames;
-tie %forenames, "DB_File", $home."/forename"
-    or carp "Couldn't open forename list: $!\n";
+my $forename = _find_file("forename");
+our %forenames;
+tie %forenames, "DB_File", $forename, O_RDONLY
+  or carp "Couldn't open forename list: $!\n";
+
+
 require Exporter;
-
 our @ISA = qw(Exporter);
-our @EXPORT = qw(
-	extract_entities
-);
+our @EXPORT = qw(extract_entities);
 
-our $VERSION = '1.2';
+our $VERSION = '1.3';
+
 
 # Regexps for constructing capitalised sequences
 my $conjunctives = qr/of|and|the|&|\+/i;
@@ -33,8 +34,9 @@ my $break = qr/\b|^|$/;
 my $people_initial = qr/Mrs?|Ms|Dr|Sir|Lady|Lord/;
 my $people_terminal = qr/Sr|Jr|Esq/;
 my $places_initial = qr/Mt|Ft|St|Lake|Mount/;
+my $places_terminal = qr/St(reet)?|Ave(nue)?/i;
 my $abbr = qr/$people_initial|$people_terminal|$places_initial|St/;
-my $capped = qr/$break (?:$abbr(\.|$break)?|[A-Z][a-z]* $break)/x;
+my $capped = qr/$break (?:$abbr(\.|$break)|[A-Z][a-z]* $break)/x;
 my $folky = qr/-(?:(?:in|under|over|by|the)-)+/i;
 my $middle = qr/ $folky | 
                 [\s-] (?:$conjunctives [\s-])* /x;
@@ -66,7 +68,6 @@ sub _categorize_entity {
     return $e;
 }
 
-my $places_terminal = qr/St(reet)?|Ave(nue)?/i;
 sub _definites {
     my $e = shift;
     my $ent = $e->{entity};
@@ -173,6 +174,14 @@ sub _combine_contexts {
      }
     return @rv;
 }
+
+
+sub _find_file {
+    my $file = shift;
+    my @files = grep { -e $_ } map { "$_/Lingua/EN/NamedEntity/$file" } @INC;
+    return $files[0];
+}
+
 1;
 __END__
 
