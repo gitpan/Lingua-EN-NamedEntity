@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::EN::NamedEntity.
 
+1.6 Sat Apr 02 16:18:00 2005
+    - No changes. Upload to the correct directory 
+
 1.5 Sat Nov 06 21:19:13 2004
 1.4 Sat Nov 06 21:19:13 2004 (failed upload)
     - Applyed patch from Mike Castle regarding system-wide database
