@@ -24,24 +24,26 @@ package MY;
 
 sub postamble {
       return <<"EOF";
-database:
+database: pm_to_blib
 \tperl ./data/mkdb.pl
+\t\$(NOECHO) \$(TOUCH) \$@
+
+clean_database:
+\t\$(NOECHO) \$(RM_F) database
 
 EOF
 }
 
-sub test {
+sub top_targets {
     my $class = shift;
-    my $makefragment = $class->SUPER::test(@_);
-    $makefragment =~ s/^(test ::)/$1 database/m;
+    my $makefragment = $class->SUPER::top_targets(@_);
+    $makefragment =~ s/^(pure_all ::)/$1 database/m;
     return $makefragment;
 }
-
-sub install {
+ 
+sub clean {
     my $class = shift;
-    my $makefragment = $class->SUPER::install(@_);
-    $makefragment =~ s/^(install ::)/$1 database/m;
+    my $makefragment = $class->SUPER::clean(@_);
+    $makefragment =~ s/^(clean ::)/$1 clean_database/m;
     return $makefragment;
 }
-
-

@@ -1,5 +1,10 @@
 Revision history for Perl extension Lingua::EN::NamedEntity.
 
+1.5 Sat Nov 06 21:19:13 2004
+1.4 Sat Nov 06 21:19:13 2004 (failed upload)
+    - Applyed patch from Mike Castle regarding system-wide database
+	creation
+
 1.3 Mon Oct 11 14:32:13 2004
     - Corrected bug with Street detection.
     - Added system-wide database file.
