@@ -21,7 +21,7 @@ our @EXPORT = qw(
 	extract_entities
 );
 
-our $VERSION = '1.0';
+our $VERSION = '1.1';
 
 # Regexps for constructing capitalised sequences
 my $conjunctives = qr/of|and|the|&|\+/i;

@@ -7,6 +7,7 @@ WriteMakefile(
     VERSION_FROM      => 'NamedEntity.pm', # finds $VERSION
     PREREQ_PM         => 
     { DB_File => 0,
+        Lingua::Stem::En => 0,
     Compress::Zlib => 0,
       LWP::Simple => 0 }, # e.g., Module::Name => 1.1
     
@@ -30,10 +31,12 @@ tie %wordlist, "DB_File", "$dir/wordlist"
     or die "Something went wrong with DB_File";
 
 print "Looking for a wordlist...";
-if (open DICT, "/usr/share/dict/words") {
+my $words = -e "/usr/share/dict/words" ? "/usr/share/dict/words"
+            : -e "/usr/dict/words" && "/usr/dict/words";
+if ($words && open DICT, $words) {
     $|=1;
-    print " I shall use /usr/share/dict/words\nThis will take some time. ";
-    my $size = -s "/usr/share/dict/words";
+    print " I shall use $words\nThis will take some time. ";
+    my $size = -s $words;
     my %said;
     while (<DICT>) {
         chomp;
