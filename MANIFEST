@@ -1,0 +1,8 @@
+Changes
+Makefile.PL
+MANIFEST
+NamedEntity.pm
+README
+t/1.t
+t/kelly
+data/givennames-ol
