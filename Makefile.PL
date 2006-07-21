@@ -15,7 +15,7 @@ WriteMakefile(
 				   },
 	      ($] >= 5.005 ?
 	       (ABSTRACT_FROM  => 'NamedEntity.pm',
-		AUTHOR         => 'Simon Cozens') : ()),
+		AUTHOR         => 'Alberto Simoes') : ()),
 	     );
 
 

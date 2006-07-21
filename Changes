@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::EN::NamedEntity.
 
+1.7 Fri Jul 21  9:09:00 2006
+    - change decompress to uncompress (Compress::Zlib API change)
+
 1.6 Sat Apr 02 16:18:00 2005
     - No changes. Upload to the correct directory 
 

@@ -7,7 +7,7 @@ my $dir = './blib/lib/Lingua/EN/NamedEntity';
 
 print  "\n";
 print  "I'm going to write some wordlists as DB_Files into a subdirectory\n";
-print  "in your home directory, to increase start-up time.\n";
+print  "in your home directory, to decrease start-up time.\n";
 
 #my $dir = ((getpwuid $<)[7]). "/.namedentity";
 #if (-d $dir) {
@@ -45,7 +45,7 @@ if ($words && open DICT, $words) {
   if ($wlz) {
     require Compress::Zlib;
     print  "I hope you have a lot of memory. This may hurt.\n";
-    my $wl = Compress::Zlib::decompress($wlz);
+    my $wl = Compress::Zlib::uncompress($wlz);
     for (split /\n/, $wl) {	# Ow, the pain
       next if /[A-Z]/;
       $wordlist{$_}=1;

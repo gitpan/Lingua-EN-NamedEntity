@@ -25,7 +25,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(extract_entities);
 
-our $VERSION = '1.6';
+our $VERSION = '1.7';
 
 
 # Regexps for constructing capitalised sequences
