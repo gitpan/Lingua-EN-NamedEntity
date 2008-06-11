@@ -1,5 +1,9 @@
 Revision history for Perl extension Lingua::EN::NamedEntity.
 
+1.8 Wed Jun 11 17:52:11 2008
+    - corrected bug in makefile when different perls are installed on
+      same machine
+
 1.7 Fri Jul 21  9:09:00 2006
     - change decompress to uncompress (Compress::Zlib API change)
 

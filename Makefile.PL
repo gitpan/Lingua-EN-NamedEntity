@@ -25,7 +25,7 @@ package MY;
 sub postamble {
       return <<"EOF";
 database: pm_to_blib
-\tperl ./data/mkdb.pl
+\t\$(PERL) ./data/mkdb.pl
 \t\$(NOECHO) \$(TOUCH) \$@
 
 clean_database:

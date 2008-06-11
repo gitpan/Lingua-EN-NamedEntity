@@ -25,7 +25,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(extract_entities);
 
-our $VERSION = '1.7';
+our $VERSION = '1.8';
 
 
 # Regexps for constructing capitalised sequences
@@ -223,9 +223,13 @@ Simon Cozens, C<simon@kasei.com>
 
 Maintained by Alberto Simões, C<ambs@cpan.org>
 
+=head1 ACKNOWLEDGMENTS
+
+Thanks to Jon Allen for help with Makefile.PL failure.
+
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004 by Alberto Simões
+Copyright 2004-2008 by Alberto Simões
 Copyright 2003 by Simon Cozens
 
 This library is free software; you can redistribute it and/or modify
