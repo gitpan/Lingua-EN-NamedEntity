@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::EN::NamedEntity.
 
+1.9 Wed Jun 18 18:26:11 2008
+    - Added a 'count' field for each entity, thanks to Bo Adler.
+
 1.8 Wed Jun 11 17:52:11 2008
     - corrected bug in makefile when different perls are installed on
       same machine

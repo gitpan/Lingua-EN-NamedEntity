@@ -25,7 +25,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(extract_entities);
 
-our $VERSION = '1.8';
+our $VERSION = '1.9';
 
 
 # Regexps for constructing capitalised sequences
@@ -59,6 +59,7 @@ sub extract_entities {
 sub _categorize_entity {
     my $e = shift;
     $e->{scores} = { person => 1, place => 1, organisation => 1};
+    $e->{count} = 1;
     bless $e, "Lingua::EN::NamedEntity";
     $e->_definites and return $e;
     $e->_name_clues;
@@ -165,6 +166,7 @@ sub _combine_contexts {
     # another too!
     for my $e (@entities) {
         $combined{$e->{entity}}{entity} = $e->{entity};
+	$combined{$e->{entity}}{count} += $e->{count};
         for my $class (keys %{$e->{scores}}) {
             $combined{$e->{entity}}{scores}{$class} += $e->{scores}{$class}
         }
@@ -210,6 +212,8 @@ references looking like this:
 The additional C<scores> hash reference in there breaks down the various
 possible classes for this entity in an open-ended scale. 
 
+The hash also includes the number of occurrences for that entity.
+
 Naturally, the more text you throw at this, the more accurate it becomes.
 
 =head2 extract_entities
@@ -226,6 +230,8 @@ Maintained by Alberto Simões, C<ambs@cpan.org>
 =head1 ACKNOWLEDGMENTS
 
 Thanks to Jon Allen for help with Makefile.PL failure.
+
+Thanks to Bo Adler for a patch with entity count.
 
 =head1 COPYRIGHT AND LICENSE
 

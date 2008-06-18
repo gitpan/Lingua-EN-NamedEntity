@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Lingua-EN-NamedEntity
-version:             1.8
+version:             1.9
 abstract:            Basic Named Entity Extraction algorithm
 license:             ~
 author:              
