@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::EN::NamedEntity.
 
+1.91 Mon Jun  3 12:29:17 WEST 2013
+    - Change URL for english-words gzipped file
+
 1.9 Wed Jun 18 18:26:11 2008
     - Added a 'count' field for each entity, thanks to Bo Adler.
 

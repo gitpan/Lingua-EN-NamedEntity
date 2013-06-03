@@ -1,0 +1,44 @@
+{
+   "abstract" : "Basic Named Entity Extraction algorithm",
+   "author" : [
+      "Alberto Simoes"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "ExtUtils::MakeMaker version 6.66, CPAN::Meta::Converter version 2.131490",
+   "license" : [
+      "unknown"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : "2"
+   },
+   "name" : "Lingua-EN-NamedEntity",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "inc"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "runtime" : {
+         "requires" : {
+            "Compress::Zlib" : "0",
+            "DB_File" : "0",
+            "LWP::Simple" : "0",
+            "Lingua::Stem::En" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "version" : "1.91"
+}

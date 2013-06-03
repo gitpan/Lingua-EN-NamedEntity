@@ -10,3 +10,4 @@ t/pod-coverage.t
 t/pod.t
 META.yml                                 Module meta-data (added by MakeMaker)
 data/mkdb.pl
+META.json                                Module JSON meta-data (added by MakeMaker)

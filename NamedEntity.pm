@@ -25,7 +25,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(extract_entities);
 
-our $VERSION = '1.9';
+our $VERSION = '1.91';
 
 
 # Regexps for constructing capitalised sequences
@@ -50,11 +50,9 @@ sub extract_entities {
     $text =~ s/\n/ /g;
     $text =~ s/ +/ /g;
     my @candidates;
-    @candidates = _combine_contexts(
-    map { _categorize_entity($_) }
-     _spurn_dictionary_words(_extract_capitalized($text)));
+    @candidates = _combine_contexts(map { _categorize_entity($_) }
+                                    _spurn_dictionary_words(_extract_capitalized($text)));
 }
-
 
 sub _categorize_entity {
     my $e = shift;
