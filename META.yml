@@ -22,4 +22,4 @@ requires:
   DB_File: 0
   LWP::Simple: 0
   Lingua::Stem::En: 0
-version: 1.91
+version: 1.92

@@ -25,7 +25,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(extract_entities);
 
-our $VERSION = '1.91';
+our $VERSION = '1.92';
 
 
 # Regexps for constructing capitalised sequences
@@ -185,6 +185,8 @@ sub _find_file {
 1;
 __END__
 
+=encoding UTF-8
+
 =head1 NAME
 
 Lingua::EN::NamedEntity - Basic Named Entity Extraction algorithm
@@ -223,7 +225,7 @@ entities, as described above.
 
 Simon Cozens, C<simon@kasei.com>
 
-Maintained by Alberto Simıes, C<ambs@cpan.org>
+Maintained by Alberto Sim√µes, C<ambs@cpan.org>
 
 =head1 ACKNOWLEDGMENTS
 
@@ -233,7 +235,7 @@ Thanks to Bo Adler for a patch with entity count.
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2004-2008 by Alberto Simıes
+Copyright 2004-2008 by Alberto Sim√µes
 Copyright 2003 by Simon Cozens
 
 This library is free software; you can redistribute it and/or modify

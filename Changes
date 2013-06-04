@@ -1,5 +1,8 @@
 Revision history for Perl extension Lingua::EN::NamedEntity.
 
+1.92 Tue Jun  4 10:04:06 WEST 2013
+    - Add encoding directive to POD
+
 1.91 Mon Jun  3 12:29:17 WEST 2013
     - Change URL for english-words gzipped file
 
